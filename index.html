@@ -4,6 +4,12 @@
   <meta charset="utf-8" />
   <script src="loader.js"></script>
   <script type="text/javascript">
+  function loadpost(handle) {
+   var postcontent = md.render(result['content'][handle]['body']);
+   postcontent+='<hr><a href="#" onClick="c.innerHTML=postindex;">Go back</a>';
+   t.innerHTML=result['content'][handle]['title'];
+   c.innerHTML=postcontent;
+  }
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
   loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js", function(){
     var steemusername = 'ausbitbank';
@@ -14,12 +20,7 @@
     var c = document.getElementById("content");
     var t = document.getElementById("title");
 
-    function loadpost(handle) {
-      var postcontent = md.render(result['content'][handle]['body']);
-      postcontent+='<hr><a href="#" onClick="c.innerHTML=postindex;">Go back</a>';
-      t.innerHTML=result['content'][handle]['title'];
-      c.innerHTML=postcontent;
-    }
+
 
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
