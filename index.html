@@ -14,12 +14,7 @@
     var md = new Remarkable({html:true,breaks:true,linkify:true,typographer:true});
     var c = document.getElementById("content");
     var t = document.getElementById("title");
-    function loadpost(handle) {
-      var postcontent = md.render(result['content'][handle]['body']);
-      postcontent+='<hr><a href="#" onClick="c.innerHTML=postindex;">Go back</a>';
-      t.innerHTML=result['content'][handle]['title'];
-      c.innerHTML=postcontent;
-    }
+
 
 
     if (redirect && redirect != location.href) {
@@ -37,6 +32,12 @@
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
         document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
+        function loadpost(handle) {
+          var postcontent = md.render(result['content'][handle]['body']);
+          postcontent+='<hr><a href="#" onClick="c.innerHTML=postindex;">Go back</a>';
+          t.innerHTML=result['content'][handle]['title'];
+          c.innerHTML=postcontent;
+        }
         for(var i=0;i<result['accounts'][steemusername]['blog'].length;i++){
           var handle = result['accounts'][steemusername]['blog'][i].split('/');
           var postauthor = handle[0];
