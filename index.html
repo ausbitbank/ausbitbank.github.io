@@ -6,12 +6,13 @@
   <script src="loader.js"></script>
   <script type="text/javascript">
   loadScript("remarkable.min.js", function(){
-    var md = new Remarkable();
+    // markdown parsing
   });
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
     var steemusername = 'ausbitbank';
     var redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
+    var md = new Remarkable();
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
       //console.log("redirect from "+redirect);
