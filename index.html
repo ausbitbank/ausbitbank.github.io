@@ -6,28 +6,36 @@
   <script src="loader.js"></script>
   <script type="text/javascript">
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
-    //initialization code
     var steemusername = 'ausbitbank';
     var redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
-      console.log("redirect from "+redirect);
+      //console.log("redirect from "+redirect);
       link = redirect.split('/')
       permlink = link[3]
       console.log("loading "+permlink);
       steem.api.getContent(steemusername, permlink, function(err, result) {
         console.log(err, result);
+        document.getElementById("title").innerHTML=result['title'];
+        document.getElementById("content").innerHTML=result['body'];
       });
     } else {
-      console.log("no redirect - load index");
+      //console.log("no redirect - load index");
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
+
       });
     }
   });
   </script>
 </head>
 <body>
+  <div id="title">
+
+  </div>
+  <div id="content">
+
+  </div>
 </body>
 </html>
