@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>ausbitbank.github.io</title>
   <script src="loader.js"></script>
   <script type="text/javascript">
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
   loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js", function(){
     var steemusername = 'ausbitbank';
+    var showresteems = false;
     var redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
     var md = new Remarkable({html:true,breaks:true,linkify:true,typographer:true});
+    var c = document.getElementById("content");
+    var t = document.getElementById("title");
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
       link = redirect.split('/')
@@ -18,12 +20,29 @@
       console.log("loading "+permlink);
       steem.api.getContent(steemusername, permlink, function(err, result) {
         console.log(err, result);
-        document.getElementById("title").innerHTML='<h1>'+result['title']+'</h1>';
-        document.getElementById("content").innerHTML=md.render(result['body']);
+        document.title=result['title'];
+        var postcontent = md.render(result['body']);
+        t.innerHTML='<h1>'+result['title']+'</h1>';
+        c.innerHTML=postcontent;
       });
     } else {
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
+        document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>;
+        for(var i=0;i<result['content'][steemusername]['blog'].length;i++){
+          console.log(result['content'][steemusername]['blog'][i]);
+          var handle = result['content'][steemusername]['blog'][i].split('/');
+          var postauthor = handle[0];
+          var postpermlink = handle[1];
+          if (postauthor != steemusername && showresteems == false) {
+            console.log("skipping resteem from "+postauthor);
+            break;
+          }
+          console.log(result['content'][postauthor+'/'+postpermlink]['title']);
+          c.innerHTML+= '<span class="postitle"><a href="" onClick="loadpost(\''+postauthor+'\\'+postpermlink+)">';
+          c.innerHTML+= result['content'][postauthor+'/'+postpermlink]['title'];
+          c.innerHTML+= '</a></span>';
+        }
       });
     }
   });
@@ -32,14 +51,13 @@
   <style>
     #title {}
     #content {}
+    .posttitle {}
   </style>
 </head>
 <body>
-  <div id="title">
-
-  </div>
-  <div id="content">
-
+  <div id="container">
+    <div id="title"></div>
+    <div id="content"></div>
   </div>
 </body>
 </html>
