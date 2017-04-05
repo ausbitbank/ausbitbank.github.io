@@ -13,11 +13,18 @@
     var md = new Remarkable({html:true,breaks:true,linkify:true,typographer:true});
     var c = document.getElementById("content");
     var t = document.getElementById("title");
+
+    function loadpost(handle) {
+      var postcontent = md.render(result['content'][handle]['body']);
+      postcontent+='<hr><a href="#" onClick="c.innerHTML=postindex;">Go back</a>';
+      t.innerHTML=result['content'][handle]['title'];
+      c.innerHTML=postcontent;
+    }
+
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
       link = redirect.split('/')
       permlink = link[3]
-      console.log("loading "+permlink);
       steem.api.getContent(steemusername, permlink, function(err, result) {
         console.log(err, result);
         document.title=result['title'];
@@ -30,7 +37,6 @@
         console.log(err, result);
         document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
         for(var i=0;i<result['accounts'][steemusername]['blog'].length;i++){
-          console.log(result['accounts'][steemusername]['blog'][i]);
           var handle = result['accounts'][steemusername]['blog'][i].split('/');
           var postauthor = handle[0];
           var postpermlink = handle[1];
@@ -38,9 +44,9 @@
             console.log("skipping resteem from "+postauthor);
             break;
           }
-          console.log(result['content'][postauthor+'/'+postpermlink]['title']);
-          c.innerHTML+= '<div class="posttitle"><a href="#" onClick="loadpost(\''+postauthor+'\\'+postpermlink+'\')">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></div>';
+          c.innerHTML+= '<div class="posttitle"><a href="#" onClick="loadpost(\''+postauthor+'/'+postpermlink+'\')">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></div>';
         }
+        var postindex = c.innerHTML;
       });
     }
   });
@@ -56,6 +62,7 @@
   <div id="container">
     <div id="title"></div>
     <div id="content"></div>
+
   </div>
 </body>
 </html>
