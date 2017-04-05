@@ -14,7 +14,7 @@
       history.replaceState(null, null, redirect);
       console.log("redirect from "+redirect);
       link = redirect.split('/')
-      permlink = link[1]
+      permlink = link[3]
       console.log("loading "+permlink);
       steem.api.getContent(steemusername, permlink, function(err, result) {
         console.log(err, result);
