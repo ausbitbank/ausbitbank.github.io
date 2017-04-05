@@ -29,9 +29,9 @@
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
         document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
-        for(var i=0;i<result['content'][steemusername]['blog'].length;i++){
-          console.log(result['content'][steemusername]['blog'][i]);
-          var handle = result['content'][steemusername]['blog'][i].split('/');
+        for(var i=0;i<result['accounts'][steemusername]['blog'].length;i++){
+          console.log(result['accounts'][steemusername]['blog'][i]);
+          var handle = result['accounts'][steemusername]['blog'][i].split('/');
           var postauthor = handle[0];
           var postpermlink = handle[1];
           if (postauthor != steemusername && showresteems == false) {
