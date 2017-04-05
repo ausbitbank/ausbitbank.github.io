@@ -39,7 +39,7 @@
           } else {
           c.innerHTML+= '<div class="posttitle"><a href="#" onClick="document.getElementById('+postauthor+'/'+postpermlink+').style.display=\"block\"">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></div>';
           var postcontent = '<div id="'+postauthor+'/'+postpermlink+'" style="display:none;">';
-          postcontent = md.render(result['content'][handle]['body']);
+          postcontent = md.render(result['content'][postauthor+'/'+postpermlink]['body']);
           postcontent+='<hr><a href="#" onClick="document.getElementById('+postauthor+'/'+postpermlink+').style.display=\"none\"">Go back</a></div>';
           t.innerHTML=result['content'][handle]['title'];
           c.innerHTML+=postcontent;
