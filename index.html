@@ -39,7 +39,7 @@
             break;
           }
           console.log(result['content'][postauthor+'/'+postpermlink]['title']);
-          c.innerHTML+= '<span class="postitle"><a href="" onClick="loadpost(\''+postauthor+'\\'+postpermlink+'\')">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></span>';
+          c.innerHTML+= '<div class="posttitle"><a href="#" onClick="loadpost(\''+postauthor+'\\'+postpermlink+'\')">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></div>';
         }
       });
     }
