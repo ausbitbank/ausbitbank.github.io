@@ -13,7 +13,6 @@
     var md = new Remarkable({html:true,breaks:true,linkify:true,typographer:true});
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
-      //console.log("redirect from "+redirect);
       link = redirect.split('/')
       permlink = link[3]
       console.log("loading "+permlink);
@@ -23,10 +22,8 @@
         document.getElementById("content").innerHTML=md.render(result['body']);
       });
     } else {
-      //console.log("no redirect - load index");
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
-
       });
     }
   });
