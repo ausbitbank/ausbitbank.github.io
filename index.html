@@ -13,7 +13,7 @@
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
       console.log("redirect from "+redirect);
-      steem.api.getContent(steemusername, redirect, function(err, result) {
+      steem.api.getContent(steemusername, redirect.split('/')[1], function(err, result) {
         console.log(err, result);
       });
     } else {
