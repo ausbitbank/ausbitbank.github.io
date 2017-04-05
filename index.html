@@ -7,7 +7,6 @@
   <script type="text/javascript">
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
     //initialization code
-
     var steemusername = 'ausbitbank';
     var redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
@@ -17,17 +16,14 @@
       steem.api.getContent(steemusername, redirect, function(err, result) {
         console.log(err, result);
       });
-
     } else {
       console.log("no redirect - load index");
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
       });
     }
-
-
   });
-    </script>
+  </script>
 </head>
 <body>
 </body>
