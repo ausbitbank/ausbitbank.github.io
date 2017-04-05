@@ -14,18 +14,18 @@
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
       console.log("redirect from "+redirect);
-      // REMOVE THIS - just showing the redirect route in the UI
-      //document.body.setAttribute('message', 'This page was redirected by 404.html, from the route: ' + redirect);
+      steem.api.getContent(steemusername, redirect, function(err, result) {
+        console.log(err, result);
+      });
+
     } else {
-      console.log("no redirect");
-      // REMOVE THIS - just showing the redirect route in the UI
-      //document.body.setAttribute('message', 'This page was loaded directly from the index.html file');
+      console.log("no redirect - load index");
+      steem.api.getState('/@'+steemusername, function(err, result) {
+        console.log(err, result);
+      });
     }
 
-   console.log('loaded index');
-    steem.api.getState('/@'+steemusername, function(err, result) {
-      console.log(err, result);
-    });
+
   });
     </script>
 </head>
