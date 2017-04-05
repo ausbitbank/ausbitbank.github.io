@@ -5,6 +5,9 @@
   <title>ausbitbank.github.io</title>
   <script src="loader.js"></script>
   <script type="text/javascript">
+  loadScript("remarkable.min.js", function(){
+    var md = new Remarkable();
+  });
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
     var steemusername = 'ausbitbank';
     var redirect = sessionStorage.redirect;
@@ -17,8 +20,8 @@
       console.log("loading "+permlink);
       steem.api.getContent(steemusername, permlink, function(err, result) {
         console.log(err, result);
-        document.getElementById("title").innerHTML=result['title'];
-        document.getElementById("content").innerHTML=result['body'];
+        document.getElementById("title").innerHTML='<h1>'+result['title']+'</h1>';
+        document.getElementById("content").innerHTML=md.render(result['body']);
       });
     } else {
       //console.log("no redirect - load index");
@@ -29,6 +32,10 @@
     }
   });
   </script>
+  <style>
+    #title {}
+    #content {}
+  </style>
 </head>
 <body>
   <div id="title">
