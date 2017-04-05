@@ -5,10 +5,8 @@
   <title>ausbitbank.github.io</title>
   <script src="loader.js"></script>
   <script type="text/javascript">
-  loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js", function(){
-    // markdown parsing
-  });
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
+  loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js", function(){
     var steemusername = 'ausbitbank';
     var redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
@@ -31,6 +29,7 @@
 
       });
     }
+  });
   });
   </script>
   <style>
