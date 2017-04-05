@@ -8,14 +8,12 @@
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
   loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js", function(){
     var steemusername = 'ausbitbank';
-    var showresteems = true;
+    var showresteems = false;
     var redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
     var md = new Remarkable({html:true,breaks:true,linkify:true,typographer:true});
     var c = document.getElementById("content");
     var t = document.getElementById("title");
-
-
 
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
@@ -32,21 +30,20 @@
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
         document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
-        function loadpost(handle) {
-          var postcontent = md.render(result['content'][handle]['body']);
-          postcontent+='<hr><a href="#" onClick="c.innerHTML=postindex;">Go back</a>';
-          t.innerHTML=result['content'][handle]['title'];
-          c.innerHTML=postcontent;
-        }
         for(var i=0;i<result['accounts'][steemusername]['blog'].length;i++){
           var handle = result['accounts'][steemusername]['blog'][i].split('/');
           var postauthor = handle[0];
           var postpermlink = handle[1];
           if (postauthor != steemusername && showresteems == false) {
             console.log("skipping resteem from "+postauthor);
-            break;
+          } else {
+          c.innerHTML+= '<div class="posttitle"><a href="#" onClick="document.getElementById('+postauthor+'/'+postpermlink+').style.display=\"block\"">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></div>';
+          var postcontent = '<div id="'+postauthor+'/'+postpermlink+'" style="display:none;">';
+          postcontent = md.render(result['content'][handle]['body']);
+          postcontent+='<hr><a href="#" onClick="document.getElementById('+postauthor+'/'+postpermlink+').style.display=\"none\"">Go back</a></div>';
+          t.innerHTML=result['content'][handle]['title'];
+          c.innerHTML+=postcontent;
           }
-          c.innerHTML+= '<div class="posttitle"><a href="#" onClick="loadpost(\''+postauthor+'/'+postpermlink+'\')">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></div>';
         }
         var postindex = c.innerHTML;
       });
