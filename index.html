@@ -39,9 +39,7 @@
             break;
           }
           console.log(result['content'][postauthor+'/'+postpermlink]['title']);
-          c.innerHTML+= '<span class="postitle"><a href="" onClick="loadpost(\''+postauthor+'\\'+postpermlink+')">';
-          c.innerHTML+= result['content'][postauthor+'/'+postpermlink]['title'];
-          c.innerHTML+= '</a></span>';
+          c.innerHTML+= '<span class="postitle"><a href="" onClick="loadpost(\''+postauthor+'\\'+postpermlink+'\')">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></span>';
         }
       });
     }
@@ -51,7 +49,7 @@
   <style>
     #title {}
     #content {}
-    .posttitle {}
+    .posttitle {clear:both;}
   </style>
 </head>
 <body>
