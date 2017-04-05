@@ -28,7 +28,7 @@
     } else {
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
-        document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>;
+        document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
         for(var i=0;i<result['content'][steemusername]['blog'].length;i++){
           console.log(result['content'][steemusername]['blog'][i]);
           var handle = result['content'][steemusername]['blog'][i].split('/');
@@ -39,7 +39,7 @@
             break;
           }
           console.log(result['content'][postauthor+'/'+postpermlink]['title']);
-          c.innerHTML+= '<span class="postitle"><a href="" onClick="loadpost(\''+postauthor+'\\'+postpermlink+)">';
+          c.innerHTML+= '<span class="postitle"><a href="" onClick="loadpost(\''+postauthor+'\\'+postpermlink+')">';
           c.innerHTML+= result['content'][postauthor+'/'+postpermlink]['title'];
           c.innerHTML+= '</a></span>';
         }
