@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ausbitbank.github.io</title>
+  <script src="loader.js"></script>
+  <script type="text/javascript">
+  loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
+    //initialization code
+
+    var steemusername = 'ausbitbank';
+    var redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect != location.href) {
+      history.replaceState(null, null, redirect);
+      console.log("redirect from "+redirect);
+      // REMOVE THIS - just showing the redirect route in the UI
+      //document.body.setAttribute('message', 'This page was redirected by 404.html, from the route: ' + redirect);
+    } else {
+      console.log("no redirect");
+      // REMOVE THIS - just showing the redirect route in the UI
+      //document.body.setAttribute('message', 'This page was loaded directly from the index.html file');
+    }
+
+   console.log('loaded index');
+    steem.api.getState('/@'+steemusername, function(err, result) {
+      console.log(err, result);
+    });
+  });
+    </script>
+</head>
+<body>
+</body>
+</html>
