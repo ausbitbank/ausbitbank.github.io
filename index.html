@@ -1,33 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <script src="loader.js"></script>
-  <script type="text/javascript">
+<html lang="en"><head><meta charset="utf-8" /><script src="loader.js"></script>
+<script type="text/javascript">
 loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js",function(){loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js",function(){var steemusername='ausbitbank';var showresteems=false;var redirect=sessionStorage.redirect;delete sessionStorage.redirect;var md=new Remarkable({html:true,breaks:true,linkify:true,typographer:true});var c=document.getElementById("content");var t=document.getElementById("header");if(redirect&&redirect!=location.href){history.replaceState(null,null,redirect);link=redirect.split('/');permlink=link[3];steem.api.getContent(steemusername,permlink,function(err,result){document.title=result['title'];var postcontent=md.render(result['body'])+'<hr><a href="/">Return to home page</a>';t.innerHTML='<h1>'+result['title']+'</h1><br /><small>Posted by '+steemusername+' on '+result['last_update']+' in '+result['category']+'</small>';c.innerHTML=postcontent})}else{steem.api.getState('/@'+steemusername,function(err,result){t.innerHTML='<h1>Recent posts by '+steemusername+'</h1><br /><small></small>';document.title='Recent posts by '+steemusername;for(var i=0;i<result['accounts'][steemusername]['blog'].length;i+=1){var handle=result['accounts'][steemusername]['blog'][i].split('/');var postauthor=handle[0];var postpermlink=handle[1];if(postauthor!=steemusername&&showresteems==false){}else{c.innerHTML+='<div class="posttitle"><h2><a href="/'+postpermlink+'">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></h2><br /><small>Posted by '+postauthor+' on '+result['content'][postauthor+'/'+postpermlink]['last_update']+' in '+result['content'][postauthor+'/'+postpermlink]['category']+'</small></div>';var postcontent='<div id="'+postauthor+'/'+postpermlink+'">';postcontent=md.render(result['content'][postauthor+'/'+postpermlink]['body']);postcontent+='<hr>';c.innerHTML+=postcontent}}var postindex=c.innerHTML})}})});
-  </script>
-  <style>
-    * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-    #container { position: relative; text-align: left; width: 960px; max-width: 90%; margin: 0 auto; }
-    a { color: #105CB6; text-decoration: none; }
-    a:hover, a:focus { color: #105CB6; text-decoration: underline; }
-    a:active { color: #105CB6; }
-    #header { width: 100%; margin: 0 auto; position: relative; padding: 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px; text-align:center;}
-    hr { background-color: #ccc; border: 0px; color: #ccc; height: 1px; margin-bottom: 20px; }
-    pre, code { background-color: #eee; display:block; padding:10px; }
-    blockquote { margin: 10px 10px 20px; padding: 9px; background-color: #f8f8f8; color: #666; border-left: 5px solid #ddd; font: 14px/20px Georgia, Times, serif; quotes: "\201C" "\201D"; }
-    blockquote p { margin: 0; }
-    blockquote:before { content: open-quote; font-weight: bold; }
-    blockquote:after  { content: close-quote; font-weight: bold; }
-    #content {box-shadow: 10px 10px 5px #888888;}
-    .posttitle { border-radius: 25px; padding:10px;background-color: black; background-image: linear-gradient(black, grey); background: black; background: linear-gradient(black, grey); color:white; font-weight:bold;clear:both;text-align:center; }
-    .posttitle a { color:white !important;}
-  </style>
-</head>
-<body>
-  <div id="container">
-    <div id="header"></div>
-    <div id="content"></div>
-  </div>
-</body>
-</html>
+</script>
+<style>
+a,a:active{color:#105CB6}*,blockquote p{margin:0}#container,#content img{max-width:90%}*{padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}#container{position:relative;text-align:left;width:960px;margin:0 auto}a{text-decoration:none}a:focus,a:hover{color:#105CB6;text-decoration:underline}#header{width:100%;margin:0 auto 20px;position:relative;padding:20px 0;border-bottom:1px solid #ddd;text-align:center}hr{background-color:#ccc;border:0;color:#ccc;height:1px;margin-bottom:20px}code,pre{background-color:#eee;display:block;padding:10px}blockquote{margin:10px 10px 20px;padding:9px;background-color:#f8f8f8;color:#666;border-left:5px solid #ddd;font:14px/20px Georgia,Times,serif;quotes:"\201C" "\201D"}blockquote:before{content:open-quote;font-weight:700}blockquote:after{content:close-quote;font-weight:700}#content{box-shadow:10px 10px 5px #888}.posttitle{border-radius:25px;padding:10px;background:#000;background:linear-gradient(black,grey);color:#fff;font-weight:700;clear:both;text-align:center}.posttitle a{color:#fff!important}
+</style>
+</head><body><div id="container"><div id="header"></div><div id="content"></div></div></body></html>
