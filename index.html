@@ -15,14 +15,15 @@
       steem.api.getContent(steemusername, permlink, function(err, result) {
         console.log(err, result);
         document.title=result['title'];
-        var postcontent = md.render(result['body']);
-        t.innerHTML='<h1>'+result['title']+'</h1>';
+        var postcontent = md.render(result['body'])+'<hr><a href="/">Return to home page</a>';
+        t.innerHTML='<h1>'+result['title']+'</h1><br /><small>Posted by '+postauthor+' on '+result['content'][postauthor+'/'+postpermlink]['last_update']+'</small>';
         c.innerHTML=postcontent;
       });
     } else {
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
-        t.innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
+        t.innerHTML='<h1>Recent posts by '+steemusername+'</h1><br /><small></small>';
+        document.title='Recent posts by '+steemusername;
         for(var i=0;i<result['accounts'][steemusername]['blog'].length;i++){
           var handle = result['accounts'][steemusername]['blog'][i].split('/');
           var postauthor = handle[0];
@@ -58,8 +59,7 @@
     blockquote:after  { content: close-quote; font-weight: bold; }
     #content {}
     .posttitle { border-radius: 25px; padding:10px;background-color: black; background-image: linear-gradient(black, grey); background: black; background: linear-gradient(black, grey); color:white; font-weight:bold;clear:both;text-align:center; }
-    .posttitle a { color:white !important}
-
+    .posttitle a { color:white !important;}
 }
   </style>
 </head>
@@ -67,7 +67,6 @@
   <div id="container">
     <div id="header"></div>
     <div id="content"></div>
-
   </div>
 </body>
 </html>
