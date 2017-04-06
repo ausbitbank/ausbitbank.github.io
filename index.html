@@ -9,7 +9,7 @@
     var steemusername = 'ausbitbank'; var showresteems = false;
     var redirect = sessionStorage.redirect; delete sessionStorage.redirect;
     var md = new Remarkable({html:true,breaks:true,linkify:true,typographer:true});
-    var c = document.getElementById("content"); var t = document.getElementById("title");
+    var c = document.getElementById("content"); var t = document.getElementById("header");
     if (redirect && redirect != location.href) { history.replaceState(null, null, redirect); link = redirect.split('/')
       permlink = link[3]
       steem.api.getContent(steemusername, permlink, function(err, result) {
