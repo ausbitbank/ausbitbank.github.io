@@ -30,8 +30,8 @@
           if (postauthor != steemusername && showresteems == false) {
             console.log("skipping resteem from "+postauthor);
           } else {
-          c.innerHTML+= '<div class="posttitle"><a href="/'+postpermlink+'">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a><br /><small>'+result['content'][postauthor+'/'+postpermlink]['last_update']+'</small></div>';
-          var postcontent = '<div id="'+postauthor+'/'+postpermlink+'" style="display:none;">';
+          c.innerHTML+= '<div class="posttitle"><h2><a href="/'+postpermlink+'">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></h2><br /><small>Posted by '+postauthor+' on '+result['content'][postauthor+'/'+postpermlink]['last_update']+'</small></div>';
+          var postcontent = '<div id="'+postauthor+'/'+postpermlink+'">';
           postcontent = md.render(result['content'][postauthor+'/'+postpermlink]['body']);
           postcontent+='<hr>';
           c.innerHTML+=postcontent;
@@ -45,7 +45,7 @@
   </script>
   <style>
     * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-    .container { position: relative; text-align: left; width: 960px; max-width: 90%; margin: 0 auto; }
+    #container { position: relative; text-align: left; width: 960px; max-width: 90%; margin: 0 auto; }
     a { color: #105CB6; text-decoration: none; }
     a:hover, a:focus { color: #105CB6; text-decoration: underline; }
     a:active { color: #105CB6; }
@@ -57,7 +57,8 @@
     blockquote:before { content: open-quote; font-weight: bold; }
     blockquote:after  { content: close-quote; font-weight: bold; }
     #content {}
-    .posttitle { border-radius: 25px; padding:10px;background-color: black; background-image: linear-gradient(black, purple); background: black; background: linear-gradient(black, purple); color:white; font-weight:bold;clear:both;text-align:center; }
+    .posttitle { border-radius: 25px; padding:10px;background-color: black; background-image: linear-gradient(black, grey); background: black; background: linear-gradient(black, grey); color:white; font-weight:bold;clear:both;text-align:center; }
+    .posttitle a { color:white !important}
 
 }
   </style>
