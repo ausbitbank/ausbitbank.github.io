@@ -4,20 +4,13 @@
   <meta charset="utf-8" />
   <script src="loader.js"></script>
   <script type="text/javascript">
-
   loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function(){
   loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js", function(){
-    var steemusername = 'ausbitbank';
-    var showresteems = false;
-    var redirect = sessionStorage.redirect;
-    delete sessionStorage.redirect;
+    var steemusername = 'ausbitbank'; var showresteems = false;
+    var redirect = sessionStorage.redirect; delete sessionStorage.redirect;
     var md = new Remarkable({html:true,breaks:true,linkify:true,typographer:true});
-    var c = document.getElementById("content");
-    var t = document.getElementById("title");
-
-    if (redirect && redirect != location.href) {
-      history.replaceState(null, null, redirect);
-      link = redirect.split('/')
+    var c = document.getElementById("content"); var t = document.getElementById("title");
+    if (redirect && redirect != location.href) { history.replaceState(null, null, redirect); link = redirect.split('/')
       permlink = link[3]
       steem.api.getContent(steemusername, permlink, function(err, result) {
         console.log(err, result);
@@ -29,7 +22,7 @@
     } else {
       steem.api.getState('/@'+steemusername, function(err, result) {
         console.log(err, result);
-        document.getElementById("title").innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
+        t.innerHTML='<h1>Recent posts by '+steemusername+'</h1>';
         for(var i=0;i<result['accounts'][steemusername]['blog'].length;i++){
           var handle = result['accounts'][steemusername]['blog'][i].split('/');
           var postauthor = handle[0];
@@ -41,7 +34,6 @@
           var postcontent = '<div id="'+postauthor+'/'+postpermlink+'" style="display:none;">';
           postcontent = md.render(result['content'][postauthor+'/'+postpermlink]['body']);
           postcontent+='<hr><a href="#" onClick="document.getElementById('+postauthor+'/'+postpermlink+').style.display=\"none;\";">Go back</a></div>';
-          t.innerHTML=result['content'][postauthor+'/'+postpermlink]['title'];
           c.innerHTML+=postcontent;
           }
         }
@@ -52,14 +44,25 @@
   });
   </script>
   <style>
-    #title {}
+    * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+    .container { position: relative; text-align: left; width: 960px; max-width: 90%; margin: 0 auto; }
+    a { color: #105CB6; text-decoration: none; }
+    a:hover, a:focus { color: #105CB6; text-decoration: underline; }
+    a:active { color: #105CB6; }
+    #header { width: 100%; margin: 0 auto; position: relative; padding: 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px; }
+    hr { background-color: #ccc; border: 0px; color: #ccc; height: 1px; margin-bottom: 20px; }
+    pre, code { background-color: #eee; display:block; padding:10px; }
+    blockquote { margin: 10px 10px 20px; padding: 9px; background-color: #f8f8f8; color: #666; border-left: 5px solid #ddd; font: 14px/20px Georgia, Times, serif; quotes: "\201C" "\201D"; }
+    blockquote p { margin: 0; }
+    blockquote:before { content: open-quote; font-weight: bold; }
+    blockquote:after  { content: close-quote; font-weight: bold; }
     #content {}
     .posttitle {clear:both;}
   </style>
 </head>
 <body>
   <div id="container">
-    <div id="title"></div>
+    <div id="header"></div>
     <div id="content"></div>
 
   </div>
