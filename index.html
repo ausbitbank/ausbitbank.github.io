@@ -30,7 +30,7 @@
           if (postauthor != steemusername && showresteems == false) {
             console.log("skipping resteem from "+postauthor);
           } else {
-          c.innerHTML+= '<div class="posttitle"><a href="#" onClick="document.getElementById('+postauthor+'/'+postpermlink+').style.display=\"block\"">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a></div>';
+          c.innerHTML+= '<div class="posttitle"><a href="/'+postpermlink+'">'+result['content'][postauthor+'/'+postpermlink]['title']+'</a><br /><small>'+result['content'][postauthor+'/'+postpermlink]['last_update']+'</small></div>';
           var postcontent = '<div id="'+postauthor+'/'+postpermlink+'" style="display:none;">';
           postcontent = md.render(result['content'][postauthor+'/'+postpermlink]['body']);
           postcontent+='<hr><a href="#" onClick="document.getElementById('+postauthor+'/'+postpermlink+').style.display=\"none;\";">Go back</a></div>';
@@ -49,7 +49,7 @@
     a { color: #105CB6; text-decoration: none; }
     a:hover, a:focus { color: #105CB6; text-decoration: underline; }
     a:active { color: #105CB6; }
-    #header { width: 100%; margin: 0 auto; position: relative; padding: 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px; }
+    #header { width: 100%; margin: 0 auto; position: relative; padding: 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px; text-align:center;}
     hr { background-color: #ccc; border: 0px; color: #ccc; height: 1px; margin-bottom: 20px; }
     pre, code { background-color: #eee; display:block; padding:10px; }
     blockquote { margin: 10px 10px 20px; padding: 9px; background-color: #f8f8f8; color: #666; border-left: 5px solid #ddd; font: 14px/20px Georgia, Times, serif; quotes: "\201C" "\201D"; }
@@ -57,7 +57,7 @@
     blockquote:before { content: open-quote; font-weight: bold; }
     blockquote:after  { content: close-quote; font-weight: bold; }
     #content {}
-    .posttitle {clear:both;}
+    .posttitle {clear:both;text-align:center;}
   </style>
 </head>
 <body>
