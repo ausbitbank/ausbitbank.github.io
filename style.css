@@ -6,7 +6,8 @@ a:focus,a:hover {color: #105CB6;text-decoration: underline}
 #header {background-repeat:no-repeat;background-position:top center;background-size:cover;position: relative;text-align: center;border-radius:25px;}
 #headerinfo {text-align:center;background-color:rgba(0,0,0,0.5);color:white;position:relative;font-weight:bold;padding:10px;border-radius:15px;}
 #profilepicture {border-radius:25px;clear:both;}
-.profile {text-align:center;background-color:rgba(0,0,0,0.5);color:white;font-weight:bold;padding-botton:20px;}
+.footer{width:100%;}
+.profile, .profile h1 {text-align:center;background-color:rgba(0,0,0,0.5);color:white;font-weight:bold;padding-botton:20px;}
 .pull-left{float:left;}
 .pull-right{float:right;}
 .scvote {text-align:center;}
