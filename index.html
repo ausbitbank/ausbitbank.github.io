@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8" />
-<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="robots" content="index, follow">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="style.css" rel="stylesheet">
+<html lang="en"><head><meta charset="utf-8" /><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="robots" content="index, follow"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="style.css" rel="stylesheet">
 <script type="text/javascript">
+var steemusername = 'ausbitbank';
+var showresteems = false;
 function loadScript(url, callback){
     var script = document.createElement("script")
     script.type = "text/javascript";
@@ -25,8 +24,6 @@ function loadScript(url, callback){
 }
 loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function() {
     loadScript("https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js", function() {
-        var steemusername = 'ausbitbank';
-        var showresteems = true;
         var redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
         var md = new Remarkable({
