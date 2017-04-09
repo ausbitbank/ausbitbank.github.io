@@ -41,9 +41,9 @@ loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function() {
             if (link[3].startsWith('@')) { var postauthor=link[3];var permlink=link[4]; } else { var postauthor=steemusername;var permlink=link[3]; }
             steem.api.getContent(postauthor, permlink, function(err, result) {
                 document.title = result['title'];
-                var postcontent = md.render(result['body']) + '<hr><span class="footer"><a href="/" >Return to home page</a></span>';
-                t.innerHTML = '<h1>' + result['title'] + '</h1><br /><small>Posted by ' + postauthor + ' on ' + result['last_update'] + ' in ' + result['category'] + '</small>';
-                c.innerHTML = postcontent+'<br /><br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
+                var postcontent = md.render(result['body']) + '<hr><span class="footer" style="text-align:center;"><a href="/" >Return to home page</a></span>';
+                t.innerHTML = '<h1>' + result['title'] + '</h1><br />Posted by ' + postauthor + ' on ' + result['last_update'] + ' in ' + result['category']+'<br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
+                c.innerHTML = postcontent;
             })
         } else {
             steem.api.getState('/@' + steemusername, function(err, result) {
