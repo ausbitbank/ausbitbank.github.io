@@ -68,8 +68,8 @@ loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function() {
                 document.title = result['title'];
                 result['body']=sanitize(result['body']);
                 var postcontent = md.render(result['body']) + '<hr><span class="footer" style="text-align:center;"><a href="/" >Return to home page</a></span>';
-                t.innerHTML = '<h2>' + result['title'] + '</h2><br />Posted by ' + postauthor + ' on ' + result['last_update'] + ' in ' + result['category']+'<br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
-                c.innerHTML = postcontent;
+                document.getElementById("header").innerHTML = '<h2>' + result['title'] + '</h2><br />Posted by ' + postauthor + ' on ' + result['last_update'] + ' in ' + result['category']+'<br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
+                document.getElementById("content").innerHTML = postcontent;
             })
         } else {
             steem.api.getState('/@' + steemusername, function(err, result) {
