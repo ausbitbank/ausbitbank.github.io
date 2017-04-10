@@ -44,7 +44,7 @@ loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function() {
             steem.api.getContent(postauthor, permlink, function(err, result) {
                 document.title = result['title'];
                 var postcontent = md.render(result['body'].replace(yturl, ytplayer)) + '<hr><span class="footer" style="text-align:center;"><a href="/" >Return to home page</a></span>';
-                t.innerHTML = '<h1>' + result['title'] + '</h1><br />Posted by ' + postauthor + ' on ' + result['last_update'] + ' in ' + result['category']+'<br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
+                t.innerHTML = '<h2>' + result['title'] + '</h2><br />Posted by ' + postauthor + ' on ' + result['last_update'] + ' in ' + result['category']+'<br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
                 c.innerHTML = postcontent;
             })
         } else {
@@ -60,11 +60,13 @@ loadScript("https://cdn.steemjs.com/lib/latest/steem.min.js", function() {
                     var postpermlink = handle[1];
                     if (postauthor != steemusername) {var postlink='@'+postauthor+'/'+postpermlink;} else {var postlink=postpermlink;}
                     if (postauthor != steemusername && showresteems == false) {} else {
-                        c.innerHTML += '<div class="posttitle"><h3><a href="/' + postlink + '">' + result['content'][postauthor + '/' + postpermlink]['title'] + '</a></h3>Posted by ' + postauthor + ' on ' + result['content'][postauthor + '/' + postpermlink]['last_update'] + ' in ' + result['content'][postauthor + '/' + postpermlink]['category'] + '<br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+postpermlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe></div>';
-                        var postcontent = '<div id="' + postauthor + '/' + postpermlink + '">';
-                        postcontent = md.render(result['content'][postauthor + '/' + postpermlink]['body'].replace(yturl, ytplayer));
-                        postcontent += '<hr>';
+                        var postcontent = '<hr><div class="postheader"><h3><a href="/' + postlink + '">' + result['content'][postauthor + '/' + postpermlink]['title'] + '</a></h3>';
+                        postcontent += 'Posted by ' + postauthor + ' on ' + result['content'][postauthor + '/' + postpermlink]['last_update'] + ' in ' + result['content'][postauthor + '/' + postpermlink]['category'] + '<br /><iframe src="https://steemconnect.com/embed/vote?author='+postauthor+'&amp;permlink='+postpermlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe><hr></div>';
+                        postcontent += '<div class="post" id="' + postauthor + '/' + postpermlink + '">';
+                        postcontent += md.render(result['content'][postauthor + '/' + postpermlink]['body'].replace(yturl, ytplayer));
+                        postcontent += '</div>';
                         c.innerHTML += postcontent;
+
                     }
                 }
                 var postindex = c.innerHTML
