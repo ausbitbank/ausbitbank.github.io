@@ -63,7 +63,11 @@ function displayposts(posts){
     postcontent += '<div class="postblock"><div class="postheader"><h3><a href="'+steemsite+'/@'+posts[i]['author']+'/'+posts[i]['permlink']+'">'+posts[i]['title']+'</a></h3>';
     postcontent += 'Posted by <a href="'+steemsite+'/@'+posts[i]['author']+'">'+posts[i]['author']+'</a> on '+posts[i]['last_update']+' in '+posts[i]['category']+'<br /><div class="voteblock">Vote now!<br /><iframe src="https://steemconnect.com/embed/vote?author='+posts[i]['author']+'&amp;permlink='+posts[i]['permlink']+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe></div></div>';
     postcontent += '<div class="post" id="'+posts[i]['author']+'/'+posts[i]['permlink']+'">'+sanitize(posts[i]['body'])+'</div><hr></div>';
-    if (i==posts.length-1||posts.length==1){postcontent+='\n<div class="center"><button class="button" id="loadmore">Load More Posts</button></div>';c.innerHTML=postcontent;loadnext(posts[i]['author'],posts[i]['permlink']);}
+    if (i==posts.length-1){
+      if(posts.length>1){postcontent+='\n<div class="center"><button class="button" id="loadmore">Load More Posts</button></div>';}
+      c.innerHTML=postcontent;
+      if(posts.length>1){loadnext(posts[i]['author'],posts[i]['permlink']);}
+    }
   }
 }
 
