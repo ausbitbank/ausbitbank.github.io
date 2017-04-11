@@ -126,7 +126,7 @@ function loadpost(author,permlink){
   history.replaceState(null, null, redirect);
   var link = redirect.split('/');
   if (link[3].startsWith('@')) { var postauthor=link[3].replace("@","");var permlink=link[4]; } else { var postauthor=steemusername;var permlink=link[3]; }
-  if (permlink==undefined){loadblogposts(postauthor);} else {loadpost(postauthor,permlink);}
+  if (permlink==undefined){steemusername=postauthor;loadblogposts(postauthor);} else {loadpost(postauthor,permlink);}
 } else {loadblogposts(steemusername);}
 
 </script>
