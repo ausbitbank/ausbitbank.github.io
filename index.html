@@ -41,6 +41,7 @@ function sanitize(str){
 }
 
 function displayheader(profile,steemusername){
+  console.log(profile);
   if (profile['name']==undefined){profile['name']=steemusername;}
   if (profile['cover_image']!==undefined){document.getElementById("header").style.backgroundImage = "url('"+profile['cover_image']+"')";}
   var headerhtml = '<img src="'+profile['profile_image']+'" id="profilepicture"><br /><div class="profile"><h1>'+profile['name']+'</h1></div><div class="clearfix"></div>';
@@ -56,13 +57,28 @@ function loadnext(author,permlink){
   }
 }
 
+function timeSince(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  var interval = Math.floor(seconds / 31536000);
+  if (interval > 1) {return interval + " years"; }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {return interval + " months";}
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {return interval + " days";}
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {return interval + " hours";}
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {return interval + " minutes";}
+  return Math.floor(seconds) + " seconds";
+}
 
 function displayposts(posts){
   var postcontent='';c.innerHTML='';
   for (var i = 0; i < posts.length; i += 1) {
     posts[i]['body']=sanitize(posts[i]['body']);
+    var timesincepost=new Date(posts[i]['last_update']);
     postcontent += '<div class="postblock"><div class="postheader"><h3><a href="'+steemsite+'/@'+posts[i]['author']+'/'+posts[i]['permlink']+'">'+posts[i]['title']+'</a></h3>';
-    postcontent += 'Posted by <a href="'+steemsite+'/@'+posts[i]['author']+'">'+posts[i]['author']+'</a> on '+posts[i]['last_update']+' in '+posts[i]['category']+'<br /><div class="voteblock">Vote now!<br /><iframe src="https://steemconnect.com/embed/vote?author='+posts[i]['author']+'&amp;permlink='+posts[i]['permlink']+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe></div></div>';
+    postcontent += 'Posted by <a href="'+steemsite+'/@'+posts[i]['author']+'">'+posts[i]['author']+'</a>  '+timeSince(timesincepost)+' ago in '+posts[i]['category']+'<br /><div class="voteblock">Vote now!<br /><iframe src="https://steemconnect.com/embed/vote?author='+posts[i]['author']+'&amp;permlink='+posts[i]['permlink']+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe></div></div>';
     postcontent += '<div class="post" id="'+posts[i]['author']+'/'+posts[i]['permlink']+'">'+posts[i]['body']+'</div><hr></div>';
     if (i==posts.length-1){
       if(posts.length>1){postcontent+='\n<div class="center"><button class="button" id="loadmore">Load More Posts</button></div>';}
