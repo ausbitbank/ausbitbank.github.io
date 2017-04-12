@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8" /><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="robots" content="index, follow"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="style.css" rel="stylesheet"></head><body><div class="container"><div class="row"><div class="column"><div id="header"></div></div></div><div class="row"><div class="column"><div id="content"><div class="loader"></div></div></div></div><div class="row"><div class="column"><div class="footer"></div></div></div></div><script type='text/javascript' src='https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js'></script><script type="text/javascript">
+<html lang="en"><head><meta charset="utf-8" /><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="robots" content="index, follow"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="style.css" rel="stylesheet"><script src="https://use.fontawesome.com/2e0323659f.js"></script></head><body><div class="container"><div class="row"><div class="column"><div id="header"></div></div></div><div class="row"><div class="column"><div id="content"><div class="loader"></div></div></div></div><div class="row"><div class="column"><div class="footer"></div></div></div></div><script type='text/javascript' src='https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js'></script><script type="text/javascript">
 // Options
 var steemusername = 'ausbitbank';
 var showresteems = false;
 var steemsite='';
 //var steemsite='https://steemit.com';
-
+var showfullposts=true;
 var redirect = sessionStorage.redirect;
 delete sessionStorage.redirect;
 
@@ -78,10 +78,12 @@ function displayposts(posts){
     posts[i]['body']=sanitize(posts[i]['body']);
     var timesincepost=new Date(posts[i]['last_update']);
     postcontent += '<div class="postblock"><div class="postheader"><h3><a href="'+steemsite+'/@'+posts[i]['author']+'/'+posts[i]['permlink']+'">'+posts[i]['title']+'</a></h3>';
-    postcontent += 'Posted by <a href="'+steemsite+'/@'+posts[i]['author']+'">'+posts[i]['author']+'</a>  '+timeSince(timesincepost)+' ago in '+posts[i]['category']+'<br /><div class="voteblock">Vote now!<br /><iframe src="https://steemconnect.com/embed/vote?author='+posts[i]['author']+'&amp;permlink='+posts[i]['permlink']+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe></div></div>';
-    postcontent += '<div class="post" id="'+posts[i]['author']+'/'+posts[i]['permlink']+'">'+posts[i]['body']+'</div><hr></div>';
+    postcontent += 'Written by <a href="'+steemsite+'/@'+posts[i]['author']+'"><i class="fa fa-user-circle" aria-hidden="true"></i> '+posts[i]['author']+'</a> '+timeSince(timesincepost)+' ago <br /><i class="fa fa-clock-o" aria-hidden="true"></i> '+readtime(posts[i]['body'])+' <i class="fa fa-tag" aria-hidden="true"></i> '+posts[i]['category']+'<br />'+votebutton(posts[i]['author'],posts[i]['permlink'])+'</div>';
+    postcontent += '<div class="post" id="'+posts[i]['author']+'/'+posts[i]['permlink']+'">'+posts[i]['body']+'</div><hr>';
+    postcontent += '<div class="center" id="commentblock-'+posts[i]['author']+'/'+posts[i]['permlink']+'"><button class="button" id="loadcomments" onClick="loadcomments(\''+posts[i]['author']+'\',\''+posts[i]['permlink']+'\',false);"><i class="fa fa-comments" aria-hidden="true"></i> View '+posts[i]['children']+' comments</button></div></div>';
+    //loadcomments(posts[i]['author'],posts[i]['permlink'],false);
     if (i==posts.length-1){
-      if(posts.length>1){postcontent+='\n<div class="center"><button class="button" id="loadmore">Load More Posts</button></div>';}
+      if(posts.length>1){postcontent+='\n<div class="center"><button class="button" id="loadmore"><i class="fa fa-refresh" aria-hidden="true"></i> Load More Posts</button></div>';} else { postcontent+='\n<div class="center"><a href="/"><button class="button">Return to home page</button></a></div>';}
       c.innerHTML=postcontent;
       if(posts.length>1){loadnext(posts[i]['author'],posts[i]['permlink']);}
     }
@@ -120,6 +122,44 @@ function loadpost(author,permlink){
     posts.push(result);
     displayposts(posts);
   });
+}
+
+function votebutton(author,permlink){
+  return '<div class="voteblock">Vote now!<br /><iframe src="https://steemconnect.com/embed/vote?author='+author+'&amp;permlink='+permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe></div>';
+}
+
+function loadcomments(parent,permlink,nest){
+  steem.api.getContentReplies(parent, permlink, function(err, result) {
+   var handle = 'commentblock-'+parent+'/'+permlink;
+   if (nest==true) { handle='commentnest-'+parent+'/'+permlink; }
+   displaycomments(result,handle,nest);
+});
+}
+
+function displaycomments(comments,handle,nest){
+  if (nest==true){ var commentsdiv='';} else {var commentsdiv='<div class="comments"><h4 class="center"><i class="fa fa-comments" aria-hidden="true"></i> '+comments.length+' Comments</h4>';}
+  for (var i = 0; i < comments.length; i += 1) {
+    var timesincecomment=new Date(comments[i]['last_update']);
+    commentsdiv+='<div class="comment" id="comment-'+comments[i]['author']+'/'+comments[i]['permlink']+'">';
+    commentsdiv+='<span class="commentauthor"><a href="/@'+comments[i]['author']+'"><i class="fa fa-user-circle" aria-hidden="true"></i> '+comments[i]['author']+'</a> replied '+timeSince(timesincecomment)+' ago</span>';
+    commentsdiv+='<span class="commentbody">'+sanitize(comments[i]['body'])+'</span>';
+    if (comments[i]['children']>0) {commentsdiv+='<div class="commentnest" id="commentnest-'+comments[i]['author']+'/'+comments[i]['permlink']+'"><button class="button" id="loadcomments" onClick="loadcomments(\''+comments[i]['author']+'\',\''+comments[i]['permlink']+'\',true);"><i class="fa fa-comments" aria-hidden="true"></i> View '+comments[i]['children']+' replies</button></div>'}
+    commentsdiv+='</div>';
+  }
+  if (nest!=true){commentsdiv+='</div>';}
+  console.log(handle);
+  document.getElementById(handle).innerHTML=commentsdiv;
+}
+
+function readtime(str){
+  var wordsperminute = 270;
+  var wordspersecond = wordsperminute/60;
+  var wordcount = str.trim().split(/\s+/g).length;
+  var readingtimetotalseconds=wordcount/wordspersecond;
+  var readingtimeminutes=Math.round(readingtimetotalseconds/60);
+  var readingtimeseconds = Math.round(readingtimetotalseconds - readingtimeminutes * 60);
+  var readingtime = readingtimeminutes + ':' + readingtimeseconds;
+  if (readingtimeminutes<1){ return "Less than a minute read";} else { return readingtimeminutes+' min read'; }
 }
 
  if (redirect && redirect != location.href) {
