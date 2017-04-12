@@ -44,7 +44,7 @@ function displayheader(profile,steemusername){
   console.log(profile);
   if (profile['name']==undefined){profile['name']=steemusername;}
   if (profile['cover_image']!==undefined){document.getElementById("header").style.backgroundImage = "url('"+profile['cover_image']+"')";}
-  var headerhtml = '<img src="'+profile['profile_image']+'" id="profilepicture"><br /><div class="profile"><h1>'+profile['name']+'</h1></div><div class="clearfix"></div>';
+  var headerhtml = '<img src="https://steemitimages.com/120x120/'+profile['profile_image']+'" id="profilepicture"><br /><div class="profile"><h1>'+profile['name']+'</h1></div><div class="clearfix"></div>';
   if (profile['about']!==undefined){headerhtml+='<div id="headerinfo"><span class="about">'+profile['about']+'</span></div>';}
   h.innerHTML = headerhtml;
   document.title = 'Recent posts by '+profile['name'];
