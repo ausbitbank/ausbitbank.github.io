@@ -35,7 +35,10 @@ a:focus,a:hover {color: #4BA2F2;text-decoration: underline}
 #content img { max-width: 90%}
 #header {background-repeat:no-repeat;background-position:top center;background-size:cover;position: relative;text-align: center;border-radius:25px;}
 #headerinfo {text-align:center;background-color:rgba(0,0,0,0.5);color:white;position:relative;font-weight:bold;padding:10px;border-radius:15px;}
+#headerinfo about {font-weight:bold;}
 #profilepicture {border-radius:25px;clear:both;max-width:250px;}
+.avatar{float:left;padding-right:5px;border-radius:25px;width:50px;height:50px;}
+.avatar2{border-radius:25px;vertical-align: middle;}
 .tip{font-weight:bold;}
 .share, .share-list, .share-list a {position: relative;text-decoration: none;}
 .share-item {display: inline-block;margin: 1rem 0;}
@@ -44,10 +47,10 @@ a:focus,a:hover {color: #4BA2F2;text-decoration: underline}
 .share-dialog .share-icon {	fill: #fff;	height: 1.5rem;}
 svg:not(:root) {	overflow: hidden;}
 .footer{width:100%;}
-.postfooter {text-align:center;}
+.postfooter {text-align:center;font-weight:bold;}
 .profile, .profile h1 {text-align:center;background-color:rgba(0,0,0,0.5);color:white;font-weight:bold;padding-botton:20px;}
 .center{display: block;margin: 0 auto;text-align: center;}
-.scvote {text-align:center;}
+.scvote {text-align:center;vertical-align:middle;}
 .voteblock {margin: 7px 0 0 0;font-weight:bold;}
 code { white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;}
 .postblock {margin: 0 0 40px 0; background: #f1f1f1;padding: 30px;border:1px solid #ccc;border-radius:25px;}
@@ -58,7 +61,7 @@ code { white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap
 .comment {padding:10px;margin:10px;border:1px solid #4BA2F2;border-radius:10px;background:white;color:black;text-align:left;}
 .commentauthor {font-weight:bold;}
 .commentbody {padding:5px;border-radius:10px;}
-.commentnest .comment {margin-left:3px;border-left:2px solid #4BA2F2;border-radius:25px;}
+.commentnest .comment {margin-left:3px;border-left:2px solid #4BA2F2;border-bottom:3px solid #4BA2F2;border-radius:25px;}
 .loader {height: 4px;width: 100%;position: relative;overflow: hidden;background-color: white;}
 .loader:before{display: block;position: absolute;content: "";left: -200px;width: 200px;height: 4px;background-color: #4BA2F2;animation: loading 2s linear infinite;}
 @keyframes loading {from {left: -200px; width: 30%;}50% {width: 30%;}70% {width: 70%;}80% { left: 50%;}95% {left: 120%;}to {left: 100%;}}
